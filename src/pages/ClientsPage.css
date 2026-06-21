@@ -1,0 +1,122 @@
+/* src/pages/ClientsPage.css */
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.search-box {
+  background: #ffffff;
+  border: 1px solid #E5E3DB;
+  border-radius: 8px;
+  padding: 0 12px;
+  height: 38px;
+  width: 280px;
+  display: flex;
+  align-items: center;
+}
+
+.search-box input {
+  border: none;
+  background: transparent;
+  font-size: 13px;
+  width: 100%;
+  padding: 0;
+  outline: none;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 48px 20px;
+  color: #888780;
+  font-size: 14px;
+  background: #ffffff;
+  border: 1px solid #E5E3DB;
+  border-radius: 12px;
+}
+
+.client-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  border: 1px solid #E5E3DB;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.client-table th {
+  font-size: 11px;
+  font-weight: 500;
+  color: #888780;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: left;
+  padding: 11px 16px;
+  background: #F7F6F2;
+  border-bottom: 1px solid #E5E3DB;
+}
+
+.client-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #E5E3DB;
+  vertical-align: middle;
+}
+
+.client-table tr:last-child td {
+  border-bottom: none;
+}
+
+.client-table tbody tr {
+  cursor: pointer;
+}
+
+.client-table tbody tr:hover {
+  background: #F7F6F2;
+}
+
+.client-who {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #E1F5EE;
+  color: #0F6E56;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.client-name {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #1A1A18;
+}
+
+.client-meta {
+  font-size: 11.5px;
+  color: #888780;
+  margin-top: 1px;
+}
+
+.contact-line {
+  font-size: 12.5px;
+  color: #5F5E5A;
+  display: block;
+}
+
+.contact-line.sub {
+  font-size: 11.5px;
+  color: #888780;
+  margin-top: 1px;
+}
