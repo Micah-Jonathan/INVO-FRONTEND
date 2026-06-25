@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { api } from '../lib/api';
+import { useBusiness } from '../context/BusinessContext';
 import './ClientProfilePage.css';
 
 function formatNaira(amount) {
@@ -22,6 +23,7 @@ function getInitials(name) {
 export default function ClientProfilePage() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { currentBusiness } = useBusiness();
   const [client, setClient] = useState(null);
   const [invoices, setInvoices] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -30,14 +32,14 @@ export default function ClientProfilePage() {
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
-    loadClient();
-  }, [id]);
+    if (currentBusiness) loadClient();
+  }, [id, currentBusiness]);
 
   async function loadClient() {
     setLoading(true);
     setError('');
     try {
-      const data = await api.get(`/clients/${id}`);
+      const data = await api.business(currentBusiness.id).get(`/clients/${id}`);
       setClient(data.client);
       setInvoices(data.invoices);
     } catch (err) {
@@ -51,7 +53,7 @@ export default function ClientProfilePage() {
     setIsDeleting(true);
     setError('');
     try {
-      await api.delete(`/clients/${id}`);
+      await api.business(currentBusiness.id).delete(`/clients/${id}`);
       navigate('/clients');
     } catch (err) {
       setError(err.message);

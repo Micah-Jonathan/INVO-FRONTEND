@@ -11,19 +11,19 @@
 .topbar h1 {
   font-size: 18px;
   font-weight: 500;
-  color: #1A1A18;
+  color: var(--text-primary);
   margin: 0;
 }
 
 .topbar p {
   font-size: 13px;
-  color: #5F5E5A;
+  color: var(--text-secondary);
   margin: 4px 0 0;
 }
 
 .new-btn {
-  background: #1D9E75;
-  color: #fff;
+  background: var(--accent);
+  color: var(--bg-card);
   border: none;
   border-radius: 8px;
   padding: 10px 16px;
@@ -35,8 +35,8 @@
 
 .form-error {
   font-size: 13px;
-  color: #A32D2D;
-  background: #FCEBEB;
+  color: var(--danger-strong);
+  background: var(--danger-bg);
   padding: 10px 12px;
   border-radius: 8px;
   margin-bottom: 16px;
@@ -53,9 +53,9 @@
   font-size: 12.5px;
   padding: 6px 12px;
   border-radius: 99px;
-  border: 1px solid #E5E3DB;
-  background: #ffffff;
-  color: #5F5E5A;
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  color: var(--text-secondary);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -63,22 +63,22 @@
 }
 
 .filter-btn.active {
-  background: #0F6E56;
-  color: #fff;
-  border-color: #0F6E56;
+  background: var(--accent-text);
+  color: var(--bg-card);
+  border-color: var(--accent-text);
 }
 
 .filter-count {
   font-size: 10.5px;
-  background: #F0EFEA;
-  color: #888780;
+  background: var(--draft-bg);
+  color: var(--text-tertiary);
   padding: 1px 6px;
   border-radius: 99px;
 }
 
 .filter-btn.active .filter-count {
   background: rgba(255, 255, 255, 0.2);
-  color: #fff;
+  color: var(--bg-card);
 }
 
 .toolbar {
@@ -86,8 +86,8 @@
 }
 
 .search-box {
-  background: #ffffff;
-  border: 1px solid #E5E3DB;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 0 12px;
   height: 38px;
@@ -108,18 +108,18 @@
 .empty-state {
   text-align: center;
   padding: 48px 20px;
-  color: #888780;
+  color: var(--text-tertiary);
   font-size: 14px;
-  background: #ffffff;
-  border: 1px solid #E5E3DB;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
 }
 
 .invoice-table {
   width: 100%;
   border-collapse: collapse;
-  background: #ffffff;
-  border: 1px solid #E5E3DB;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
   overflow: hidden;
 }
@@ -127,20 +127,20 @@
 .invoice-table th {
   font-size: 11px;
   font-weight: 500;
-  color: #888780;
+  color: var(--text-tertiary);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   text-align: left;
   padding: 11px 16px;
-  background: #F7F6F2;
-  border-bottom: 1px solid #E5E3DB;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .invoice-table td {
   padding: 12px 16px;
-  border-bottom: 1px solid #E5E3DB;
+  border-bottom: 1px solid var(--border-color);
   font-size: 13px;
-  color: #5F5E5A;
+  color: var(--text-secondary);
 }
 
 .invoice-table tr:last-child td {
@@ -152,29 +152,29 @@
 }
 
 .invoice-table tbody tr:hover {
-  background: #F7F6F2;
+  background: var(--bg-secondary);
 }
 
 .inv-num {
   font-weight: 500;
-  color: #1A1A18;
+  color: var(--text-primary);
 }
 
 .amt-cell {
   font-weight: 500;
-  color: #1A1A18;
+  color: var(--text-primary);
 }
 
 .amt-sub {
   font-size: 10.5px;
   font-weight: 400;
-  color: #888780;
+  color: var(--text-tertiary);
   margin-top: 1px;
   white-space: nowrap;
 }
 
 .due-overdue {
-  color: #A32D2D;
+  color: var(--danger-strong);
   font-weight: 500;
 }
 
@@ -187,26 +187,26 @@
 }
 
 .badge.paid {
-  background: #E1F5EE;
-  color: #085041;
+  background: var(--success-bg);
+  color: var(--success-text);
 }
 
 .badge.overdue {
-  background: #FCEBEB;
-  color: #791F1F;
+  background: var(--danger-bg);
+  color: var(--danger-text);
 }
 
 .badge.pending {
-  background: #FAEEDA;
-  color: #633806;
+  background: var(--warn-bg);
+  color: var(--warn-text);
 }
 
 .badge.partial {
-  background: #E6F1FB;
-  color: #0C447C;
+  background: var(--info-bg);
+  color: var(--info-text);
 }
 
 .badge.draft {
-  background: #F0EFEA;
-  color: #5F5E5A;
+  background: var(--draft-bg);
+  color: var(--text-secondary);
 }

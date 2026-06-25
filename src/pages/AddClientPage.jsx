@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { api } from '../lib/api';
+import { useBusiness } from '../context/BusinessContext';
 import './AddClientPage.css';
 
 function getInitials(name) {
@@ -16,6 +17,7 @@ export default function AddClientPage() {
   const navigate = useNavigate();
   const { id } = useParams(); // present only when editing an existing client
   const isEditMode = Boolean(id);
+  const { currentBusiness } = useBusiness();
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -26,14 +28,19 @@ export default function AddClientPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [loadingData, setLoadingData] = useState(isEditMode);
 
+  // Duplicate-detection: when typing an email, we check if it already
+  // exists in one of the user's OTHER businesses, and offer to import it.
+  const [duplicateMatches, setDuplicateMatches] = useState([]);
+  const [checkingDuplicate, setCheckingDuplicate] = useState(false);
+
   useEffect(() => {
-    if (isEditMode) loadClient();
-  }, [id]);
+    if (isEditMode && currentBusiness) loadClient();
+  }, [id, currentBusiness]);
 
   async function loadClient() {
     setLoadingData(true);
     try {
-      const data = await api.get(`/clients/${id}`);
+      const data = await api.business(currentBusiness.id).get(`/clients/${id}`);
       setName(data.client.name || '');
       setEmail(data.client.email || '');
       setPhone(data.client.phone || '');
@@ -44,6 +51,38 @@ export default function AddClientPage() {
     } finally {
       setLoadingData(false);
     }
+  }
+
+  // Checks for duplicates a moment after the user stops typing the email,
+  // rather than on every keystroke (avoids spamming the backend)
+  useEffect(() => {
+    if (isEditMode || !currentBusiness || !email || !email.includes('@')) {
+      setDuplicateMatches([]);
+      return;
+    }
+    const timer = setTimeout(async () => {
+      setCheckingDuplicate(true);
+      try {
+        const data = await api.get(
+          `/businesses/${currentBusiness.id}/check-client?email=${encodeURIComponent(email)}`
+        );
+        setDuplicateMatches(data.matches || []);
+      } catch {
+        // Silently ignore — duplicate checking is a nice-to-have, not critical
+      } finally {
+        setCheckingDuplicate(false);
+      }
+    }, 600);
+    return () => clearTimeout(timer);
+  }, [email, isEditMode, currentBusiness]);
+
+  function importFromMatch(match) {
+    setName(match.name || '');
+    setEmail(match.email || '');
+    setPhone(match.phone || '');
+    setCompanyName(match.company_name || '');
+    setAddress(match.address || '');
+    setDuplicateMatches([]);
   }
 
   async function handleSubmit(e) {
@@ -61,10 +100,10 @@ export default function AddClientPage() {
       };
 
       if (isEditMode) {
-        await api.put(`/clients/${id}`, payload);
+        await api.business(currentBusiness.id).put(`/clients/${id}`, payload);
         navigate(`/clients/${id}`);
       } else {
-        await api.post('/clients', payload);
+        await api.business(currentBusiness.id).post('/clients', payload);
         navigate('/clients');
       }
     } catch (err) {
@@ -118,6 +157,23 @@ export default function AddClientPage() {
               placeholder="client@email.com"
             />
           </div>
+
+          {checkingDuplicate && <p className="duplicate-checking">Checking for existing client...</p>}
+
+          {duplicateMatches.length > 0 && (
+            <div className="duplicate-notice">
+              {duplicateMatches.map((match) => (
+                <div key={match.id} className="duplicate-match">
+                  <span>
+                    A client with this email already exists in <b>{match.business_name}</b>.
+                  </span>
+                  <button type="button" onClick={() => importFromMatch(match)}>
+                    Import their details
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
 
           <div className="field">
             <label>

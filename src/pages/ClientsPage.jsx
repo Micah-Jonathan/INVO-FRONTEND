@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../lib/api';
+import { useBusiness } from '../context/BusinessContext';
 import './ClientsPage.css';
 
 function formatNaira(amount) {
@@ -17,20 +18,21 @@ function getInitials(name) {
 
 export default function ClientsPage() {
   const navigate = useNavigate();
+  const { currentBusiness } = useBusiness();
   const [clients, setClients] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [search, setSearch] = useState('');
 
   useEffect(() => {
-    loadClients();
-  }, []);
+    if (currentBusiness) loadClients();
+  }, [currentBusiness]);
 
   async function loadClients() {
     setLoading(true);
     setError('');
     try {
-      const data = await api.get('/clients');
+      const data = await api.business(currentBusiness.id).get('/clients');
       setClients(data.clients);
     } catch (err) {
       setError(err.message);
@@ -43,6 +45,8 @@ export default function ClientsPage() {
     const term = search.toLowerCase();
     return c.name.toLowerCase().includes(term) || (c.email || '').toLowerCase().includes(term);
   });
+
+  if (!currentBusiness) return <p>Loading your business...</p>;
 
   return (
     <div>

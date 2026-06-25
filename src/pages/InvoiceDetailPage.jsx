@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { api } from '../lib/api';
 import { supabase } from '../lib/supabaseClient';
+import { useBusiness } from '../context/BusinessContext';
 import './InvoiceDetailPage.css';
 
 function formatNaira(amount) {
@@ -17,6 +18,7 @@ function formatDate(dateStr) {
 export default function InvoiceDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { currentBusiness } = useBusiness();
 
   const [invoice, setInvoice] = useState(null);
   const [lineItems, setLineItems] = useState([]);
@@ -32,14 +34,14 @@ export default function InvoiceDetailPage() {
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
-    loadInvoice();
-  }, [id]);
+    if (currentBusiness) loadInvoice();
+  }, [id, currentBusiness]);
 
   async function loadInvoice() {
     setLoading(true);
     setError('');
     try {
-      const data = await api.get(`/invoices/${id}`);
+      const data = await api.business(currentBusiness.id).get(`/invoices/${id}`);
       setInvoice(data.invoice);
       setLineItems(data.lineItems || []);
       setPayments(data.payments || []);
@@ -69,7 +71,7 @@ export default function InvoiceDetailPage() {
     setIsSubmittingPayment(true);
     setError('');
     try {
-      await api.post(`/invoices/${id}/payments`, { amount, method: 'bank transfer' });
+      await api.business(currentBusiness.id).post(`/invoices/${id}/payments`, { amount, method: 'bank transfer' });
       await loadInvoice(); // refresh everything so the UI reflects the new payment
     } catch (err) {
       setError(err.message);
@@ -82,7 +84,7 @@ export default function InvoiceDetailPage() {
     setIsDeleting(true);
     setError('');
     try {
-      await api.delete(`/invoices/${id}`);
+      await api.business(currentBusiness.id).delete(`/invoices/${id}`);
       navigate('/invoices');
     } catch (err) {
       setError(err.message);
@@ -102,9 +104,10 @@ export default function InvoiceDetailPage() {
       const { data: sessionData } = await supabase.auth.getSession();
       const token = sessionData?.session?.access_token;
 
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/invoices/${id}/pdf`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/businesses/${currentBusiness.id}/invoices/${id}/pdf`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
 
       if (!response.ok) {
         const errData = await response.json();
@@ -133,7 +136,7 @@ export default function InvoiceDetailPage() {
     setError('');
     setReminderMessage('');
     try {
-      const data = await api.post(`/invoices/${id}/send-reminder`, {});
+      const data = await api.business(currentBusiness.id).post(`/invoices/${id}/send-reminder`, {});
       setReminderMessage(data.message);
       await loadInvoice(); // refresh so the activity log shows the new entry
     } catch (err) {
@@ -143,6 +146,7 @@ export default function InvoiceDetailPage() {
     }
   }
 
+  if (!currentBusiness) return <p>Loading your business...</p>;
   if (loading) return <p>Loading invoice...</p>;
   if (error && !invoice) return <p className="form-error">{error}</p>;
   if (!invoice) return <p>Invoice not found.</p>;

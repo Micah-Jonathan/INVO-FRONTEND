@@ -7,7 +7,7 @@
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: #EFEDE6;
+  background: var(--bg-page);
 }
 
 .app-shell {
@@ -17,29 +17,150 @@ body {
 
 .sidebar {
   width: 220px;
-  background: #ffffff;
-  border-right: 1px solid #E5E3DB;
+  background: var(--bg-card);
+  border-right: 1px solid var(--border-color);
   padding: 24px 0;
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
 }
 
+.logo-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 22px 14px;
+}
+
 .logo {
   font-size: 18px;
   font-weight: 500;
-  color: #1A1A18;
-  padding: 0 22px 28px;
+  color: var(--text-primary);
+}
+
+.theme-toggle-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.theme-toggle-btn:hover {
+  background: var(--bg-page);
+}
+
+.business-switcher {
+  position: relative;
+  padding: 0 22px 16px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.business-switcher-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--text-primary);
+  text-align: left;
+}
+
+.business-switcher-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.business-switcher-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.business-switcher-arrow {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  flex-shrink: 0;
+}
+
+.business-switcher-menu {
+  position: absolute;
+  top: 100%;
+  left: 22px;
+  right: 22px;
+  margin-top: 6px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  z-index: 20;
+  overflow: hidden;
+}
+
+.business-switcher-item {
+  width: 100%;
+  text-align: left;
+  padding: 9px 12px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.business-switcher-item:hover {
+  background: var(--bg-secondary);
+}
+
+.business-switcher-item.active {
+  color: var(--accent-text);
+  background: var(--accent-bg);
+  font-weight: 500;
+}
+
+.business-switcher-divider {
+  height: 1px;
+  background: var(--border-color);
+}
+
+.business-switcher-add {
+  width: 100%;
+  text-align: left;
+  padding: 9px 12px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--accent-text);
+  font-weight: 500;
+}
+
+.business-switcher-add:hover {
+  background: var(--bg-secondary);
 }
 
 .logo span {
-  color: #1D9E75;
+  color: var(--accent);
 }
 
 .nav-label {
   font-size: 11px;
   font-weight: 500;
-  color: #888780;
+  color: var(--text-tertiary);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   padding: 0 22px 8px;
@@ -50,24 +171,24 @@ body {
   display: block;
   padding: 10px 22px;
   font-size: 14px;
-  color: #5F5E5A;
+  color: var(--text-secondary);
   text-decoration: none;
   cursor: pointer;
 }
 
 .nav-item:hover {
-  background: #F7F6F2;
+  background: var(--bg-secondary);
 }
 
 .nav-item.active {
-  color: #0F6E56;
-  background: #E1F5EE;
+  color: var(--accent-text);
+  background: var(--accent-bg);
   font-weight: 500;
 }
 
 .nav-divider {
   height: 1px;
-  background: #E5E3DB;
+  background: var(--border-color);
   margin: 14px 0;
 }
 
@@ -80,15 +201,15 @@ body {
   width: 100%;
   padding: 9px;
   border-radius: 8px;
-  border: 1px solid #E0DED6;
-  background: #ffffff;
-  color: #5F5E5A;
+  border: 1px solid var(--border-color-strong);
+  background: var(--bg-card);
+  color: var(--text-secondary);
   font-size: 13px;
   cursor: pointer;
 }
 
 .logout-btn:hover {
-  background: #F7F6F2;
+  background: var(--bg-secondary);
 }
 
 .main-content {

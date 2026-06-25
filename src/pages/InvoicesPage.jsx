@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../lib/api';
+import { useBusiness } from '../context/BusinessContext';
 import './InvoicesPage.css';
 
 function formatNaira(amount) {
@@ -15,6 +16,7 @@ function formatDate(dateStr) {
 
 export default function InvoicesPage() {
   const navigate = useNavigate();
+  const { currentBusiness } = useBusiness();
   const [invoices, setInvoices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -22,14 +24,14 @@ export default function InvoicesPage() {
   const [search, setSearch] = useState('');
 
   useEffect(() => {
-    loadInvoices();
-  }, []);
+    if (currentBusiness) loadInvoices();
+  }, [currentBusiness]);
 
   async function loadInvoices() {
     setLoading(true);
     setError('');
     try {
-      const data = await api.get('/invoices');
+      const data = await api.business(currentBusiness.id).get('/invoices');
       setInvoices(data.invoices);
     } catch (err) {
       setError(err.message);
@@ -70,6 +72,8 @@ export default function InvoicesPage() {
     if (inv.status === 'draft') return <span className="badge draft">Draft</span>;
     return <span className="badge pending">Pending</span>;
   }
+
+  if (!currentBusiness) return <p>Loading your business...</p>;
 
   return (
     <div>

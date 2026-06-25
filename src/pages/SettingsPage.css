@@ -7,20 +7,20 @@
 .topbar h1 {
   font-size: 18px;
   font-weight: 500;
-  color: #1A1A18;
+  color: var(--text-primary);
   margin: 0;
 }
 
 .topbar p {
   font-size: 13px;
-  color: #5F5E5A;
+  color: var(--text-secondary);
   margin: 4px 0 0;
 }
 
 .form-error {
   font-size: 13px;
-  color: #A32D2D;
-  background: #FCEBEB;
+  color: var(--danger-strong);
+  background: var(--danger-bg);
   padding: 10px 12px;
   border-radius: 8px;
   margin-bottom: 16px;
@@ -28,16 +28,16 @@
 
 .form-success {
   font-size: 13px;
-  color: #0F6E56;
-  background: #E1F5EE;
+  color: var(--accent-text);
+  background: var(--success-bg);
   padding: 10px 12px;
   border-radius: 8px;
   margin-bottom: 16px;
 }
 
 .card {
-  background: #ffffff;
-  border: 1px solid #E5E3DB;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 16px;
@@ -47,13 +47,13 @@
 .card-title {
   font-size: 14px;
   font-weight: 500;
-  color: #1A1A18;
+  color: var(--text-primary);
   margin: 0 0 4px;
 }
 
 .card-desc {
   font-size: 12.5px;
-  color: #5F5E5A;
+  color: var(--text-secondary);
   margin: 0 0 16px;
 }
 
@@ -76,25 +76,25 @@
 
 .field label {
   font-size: 12.5px;
-  color: #5F5E5A;
+  color: var(--text-secondary);
 }
 
 .field input {
   padding: 9px 12px;
   border-radius: 8px;
-  border: 1px solid #E0DED6;
+  border: 1px solid var(--border-color-strong);
   font-size: 13.5px;
   font-family: inherit;
 }
 
 .field input:focus {
   outline: none;
-  border-color: #1D9E75;
+  border-color: var(--accent);
 }
 
 .tax-card {
-  border: 1px solid #5DCAA5;
-  background: #E1F5EE;
+  border: 1px solid var(--accent-border);
+  background: var(--success-bg);
 }
 
 .tax-field-row {
@@ -105,28 +105,28 @@
 
 .tax-label-text {
   font-size: 13px;
-  color: #1A1A18;
+  color: var(--text-primary);
 }
 
 .switch {
   width: 32px;
   height: 18px;
   border-radius: 99px;
-  background: #C7E8DA;
+  background: var(--toggle-off-bg);
   position: relative;
   cursor: pointer;
   flex-shrink: 0;
 }
 
 .switch.on {
-  background: #1D9E75;
+  background: var(--accent);
 }
 
 .switch-knob {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: #fff;
+  background: var(--bg-card);
   position: absolute;
   top: 2px;
   left: 2px;
@@ -141,8 +141,8 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  background: #ffffff;
-  border: 1px solid #E0DED6;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color-strong);
   border-radius: 8px;
   padding: 0 10px;
   height: 36px;
@@ -165,7 +165,7 @@
 
 .rate-input-wrap span {
   font-size: 14px;
-  color: #5F5E5A;
+  color: var(--text-secondary);
 }
 
 .preset-rates {
@@ -178,18 +178,18 @@
   font-size: 11.5px;
   padding: 4px 10px;
   border-radius: 99px;
-  border: 1px solid #E0DED6;
-  background: #ffffff;
-  color: #5F5E5A;
+  border: 1px solid var(--border-color-strong);
+  background: var(--bg-card);
+  color: var(--text-secondary);
   cursor: pointer;
 }
 
 .tax-applies-note {
   margin-top: 14px;
   padding-top: 14px;
-  border-top: 1px solid #5DCAA5;
+  border-top: 1px solid var(--accent-border);
   font-size: 12px;
-  color: #085041;
+  color: var(--success-text);
 }
 
 .save-row {
@@ -204,8 +204,8 @@
   padding: 9px 16px;
   border-radius: 8px;
   border: none;
-  background: #1D9E75;
-  color: #fff;
+  background: var(--accent);
+  color: var(--bg-card);
   font-weight: 500;
   cursor: pointer;
 }

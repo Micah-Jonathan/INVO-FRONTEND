@@ -2,6 +2,9 @@
 
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { BusinessProvider } from './context/BusinessContext';
+import { ThemeProvider } from './context/ThemeContext';
+import './styles/theme.css';
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
 import ClientsPage from './pages/ClientsPage';
@@ -11,6 +14,7 @@ import InvoicesPage from './pages/InvoicesPage';
 import InvoiceDetailPage from './pages/InvoiceDetailPage';
 import CreateInvoicePage from './pages/CreateInvoicePage';
 import SettingsPage from './pages/SettingsPage';
+import CreateBusinessPage from './pages/CreateBusinessPage';
 import AppLayout from './components/AppLayout';
 
 // Wraps any page that should ONLY be visible to logged-in users
@@ -46,6 +50,7 @@ function AppRoutes() {
         <Route path="/invoices/:id/edit" element={<CreateInvoicePage />} />
         <Route path="/invoices/:id" element={<InvoiceDetailPage />} />
         <Route path="/settings" element={<SettingsPage />} />
+        <Route path="/businesses/new" element={<CreateBusinessPage />} />
       </Route>
 
       <Route path="*" element={<Navigate to="/dashboard" replace />} />
@@ -55,10 +60,14 @@ function AppRoutes() {
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <AuthProvider>
-        <AppRoutes />
-      </AuthProvider>
-    </BrowserRouter>
+    <ThemeProvider>
+      <BrowserRouter>
+        <AuthProvider>
+          <BusinessProvider>
+            <AppRoutes />
+          </BusinessProvider>
+        </AuthProvider>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }

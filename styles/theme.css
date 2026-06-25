@@ -1,0 +1,96 @@
+/* src/styles/theme.css
+ *
+ * Defines every color used across the app as a CSS variable, once.
+ * Light mode is the default (:root). Dark mode overrides kick in
+ * when the <html> element has data-theme="dark" set on it.
+ *
+ * Every other CSS file in the app should reference these variables
+ * (e.g. var(--bg-card)) instead of hardcoding hex colors directly.
+ */
+
+:root {
+  /* Backgrounds */
+  --bg-page: #EFEDE6;
+  --bg-card: #ffffff;
+  --bg-secondary: #F7F6F2;
+
+  /* Borders */
+  --border-color: #E5E3DB;
+  --border-color-strong: #E0DED6;
+
+  /* Text */
+  --text-primary: #1A1A18;
+  --text-secondary: #5F5E5A;
+  --text-tertiary: #888780;
+
+  /* Brand accent */
+  --accent: #1D9E75;
+  --accent-bg: #E1F5EE;
+  --accent-text: #0F6E56;
+  --accent-border: #5DCAA5;
+
+  /* Status colors */
+  --danger-bg: #FCEBEB;
+  --danger-text: #791F1F;
+  --danger-strong: #A32D2D;
+  --warn-bg: #FAEEDA;
+  --warn-text: #633806;
+  --info-bg: #E6F1FB;
+  --info-text: #0C447C;
+  --success-bg: #E1F5EE;
+  --success-text: #085041;
+  --draft-bg: #F0EFEA;
+  --draft-text: #5F5E5A;
+  --notice-border: #C9A961;
+  --danger-border: #F0C5C5;
+  --toggle-off-bg: #C7E8DA;
+
+  /* Shadows */
+  --shadow-color: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme='dark'] {
+  /* Backgrounds */
+  --bg-page: #18191B;
+  --bg-card: #222325;
+  --bg-secondary: #2A2B2E;
+
+  /* Borders */
+  --border-color: rgba(255, 255, 255, 0.12);
+  --border-color-strong: rgba(255, 255, 255, 0.18);
+
+  /* Text */
+  --text-primary: #F0EFEC;
+  --text-secondary: #B4B2A9;
+  --text-tertiary: #888780;
+
+  /* Brand accent (slightly brighter so it doesn't look muddy on dark) */
+  --accent: #3FBE93;
+  --accent-bg: #0C2B23;
+  --accent-text: #5DCAA5;
+  --accent-border: #2F7A60;
+
+  /* Status colors */
+  --danger-bg: #3A1717;
+  --danger-text: #F09595;
+  --danger-strong: #E57777;
+  --warn-bg: #3A2A0C;
+  --warn-text: #FAC775;
+  --info-bg: #122A3D;
+  --info-text: #7CB3E8;
+  --success-bg: #0C2B23;
+  --success-text: #5DCAA5;
+  --draft-bg: #2A2B2E;
+  --draft-text: #B4B2A9;
+  --notice-border: #8A6D2F;
+  --danger-border: #5A2828;
+  --toggle-off-bg: #2A4A3D;
+
+  /* Shadows */
+  --shadow-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Smooth transition when switching themes, rather than an abrupt flash */
+body, .app-shell, .sidebar, .main-content {
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}

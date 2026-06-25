@@ -9,8 +9,8 @@
 }
 
 .search-box {
-  background: #ffffff;
-  border: 1px solid #E5E3DB;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 0 12px;
   height: 38px;
@@ -31,18 +31,18 @@
 .empty-state {
   text-align: center;
   padding: 48px 20px;
-  color: #888780;
+  color: var(--text-tertiary);
   font-size: 14px;
-  background: #ffffff;
-  border: 1px solid #E5E3DB;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
 }
 
 .client-table {
   width: 100%;
   border-collapse: collapse;
-  background: #ffffff;
-  border: 1px solid #E5E3DB;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
   overflow: hidden;
 }
@@ -50,18 +50,18 @@
 .client-table th {
   font-size: 11px;
   font-weight: 500;
-  color: #888780;
+  color: var(--text-tertiary);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   text-align: left;
   padding: 11px 16px;
-  background: #F7F6F2;
-  border-bottom: 1px solid #E5E3DB;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .client-table td {
   padding: 12px 16px;
-  border-bottom: 1px solid #E5E3DB;
+  border-bottom: 1px solid var(--border-color);
   vertical-align: middle;
 }
 
@@ -74,7 +74,7 @@
 }
 
 .client-table tbody tr:hover {
-  background: #F7F6F2;
+  background: var(--bg-secondary);
 }
 
 .client-who {
@@ -87,8 +87,8 @@
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background: #E1F5EE;
-  color: #0F6E56;
+  background: var(--success-bg);
+  color: var(--accent-text);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -100,23 +100,23 @@
 .client-name {
   font-size: 13.5px;
   font-weight: 500;
-  color: #1A1A18;
+  color: var(--text-primary);
 }
 
 .client-meta {
   font-size: 11.5px;
-  color: #888780;
+  color: var(--text-tertiary);
   margin-top: 1px;
 }
 
 .contact-line {
   font-size: 12.5px;
-  color: #5F5E5A;
+  color: var(--text-secondary);
   display: block;
 }
 
 .contact-line.sub {
   font-size: 11.5px;
-  color: #888780;
+  color: var(--text-tertiary);
   margin-top: 1px;
 }

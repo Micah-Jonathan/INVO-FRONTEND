@@ -2,9 +2,11 @@
 
 import { useEffect, useState } from 'react';
 import { api } from '../lib/api';
+import { useBusiness } from '../context/BusinessContext';
 import './SettingsPage.css';
 
 export default function SettingsPage() {
+  const { currentBusiness, refreshBusinesses } = useBusiness();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -18,29 +20,20 @@ export default function SettingsPage() {
   const [invoicePrefix, setInvoicePrefix] = useState('INV-');
   const [paymentTermsDays, setPaymentTermsDays] = useState(7);
 
+  // No fetch needed here — currentBusiness already has everything,
+  // since it comes from BusinessContext (loaded once at login / on switch).
   useEffect(() => {
-    loadProfile();
-  }, []);
-
-  async function loadProfile() {
-    setLoading(true);
-    setError('');
-    try {
-      const data = await api.get('/profile');
-      const p = data.profile;
-      setBusinessName(p.business_name || '');
-      setBusinessPhone(p.business_phone || '');
-      setBusinessAddress(p.business_address || '');
-      setTaxEnabled(p.default_tax_enabled);
-      setTaxRate(p.default_tax_rate);
-      setInvoicePrefix(p.invoice_prefix || 'INV-');
-      setPaymentTermsDays(p.default_payment_terms_days || 7);
-    } catch (err) {
-      setError(err.message);
-    } finally {
+    if (currentBusiness) {
+      setBusinessName(currentBusiness.business_name || '');
+      setBusinessPhone(currentBusiness.business_phone || '');
+      setBusinessAddress(currentBusiness.business_address || '');
+      setTaxEnabled(currentBusiness.default_tax_enabled);
+      setTaxRate(currentBusiness.default_tax_rate);
+      setInvoicePrefix(currentBusiness.invoice_prefix || 'INV-');
+      setPaymentTermsDays(currentBusiness.default_payment_terms_days || 7);
       setLoading(false);
     }
-  }
+  }, [currentBusiness]);
 
   async function handleSave(e) {
     e.preventDefault();
@@ -49,7 +42,7 @@ export default function SettingsPage() {
     setIsSaving(true);
 
     try {
-      await api.put('/profile', {
+      await api.business(currentBusiness.id).put(`/businesses/${currentBusiness.id}`, {
         business_name: businessName,
         business_phone: businessPhone,
         business_address: businessAddress,
@@ -58,6 +51,8 @@ export default function SettingsPage() {
         invoice_prefix: invoicePrefix,
         default_payment_terms_days: Number(paymentTermsDays),
       });
+      // Refresh the sidebar switcher too, in case the business name changed
+      await refreshBusinesses(currentBusiness.id);
       setSuccess('Settings saved successfully.');
     } catch (err) {
       setError(err.message);

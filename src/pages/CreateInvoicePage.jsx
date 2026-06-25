@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams, useParams } from 'react-router-dom';
 import { api } from '../lib/api';
+import { useBusiness } from '../context/BusinessContext';
 import './CreateInvoicePage.css';
 
 function formatNaira(amount) {
@@ -26,9 +27,9 @@ export default function CreateInvoicePage() {
   const isEditMode = Boolean(id);
   const [searchParams] = useSearchParams();
   const preselectedClientId = searchParams.get('client');
+  const { currentBusiness } = useBusiness();
 
   const [clients, setClients] = useState([]);
-  const [profile, setProfile] = useState(null);
   const [loadingData, setLoadingData] = useState(true);
 
   const [clientId, setClientId] = useState('');
@@ -43,19 +44,18 @@ export default function CreateInvoicePage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    loadInitialData();
-  }, []);
+    if (currentBusiness) loadInitialData();
+  }, [currentBusiness, id]);
 
   async function loadInitialData() {
     setLoadingData(true);
     try {
-      const [clientsRes, profileRes] = await Promise.all([api.get('/clients'), api.get('/profile')]);
+      const clientsRes = await api.business(currentBusiness.id).get('/clients');
       setClients(clientsRes.clients);
-      setProfile(profileRes.profile);
 
       if (isEditMode) {
         // Editing: load the existing invoice and pre-fill everything from it
-        const invRes = await api.get(`/invoices/${id}`);
+        const invRes = await api.business(currentBusiness.id).get(`/invoices/${id}`);
         setClientId(invRes.invoice.client_id);
         setDueDate(invRes.invoice.due_date);
         setTaxEnabled(invRes.invoice.tax_enabled);
@@ -71,10 +71,11 @@ export default function CreateInvoicePage() {
           }))
         );
       } else {
-        // Creating: apply business defaults
-        setTaxEnabled(profileRes.profile.default_tax_enabled);
-        setTaxRate(profileRes.profile.default_tax_rate);
-        setDueDate(todayPlusDays(profileRes.profile.default_payment_terms_days || 7));
+        // Creating: apply this BUSINESS's defaults (no longer a separate /profile call —
+        // currentBusiness already has these fields from the BusinessContext)
+        setTaxEnabled(currentBusiness.default_tax_enabled);
+        setTaxRate(currentBusiness.default_tax_rate);
+        setDueDate(todayPlusDays(currentBusiness.default_payment_terms_days || 7));
         if (preselectedClientId) setClientId(preselectedClientId);
       }
     } catch (err) {
@@ -124,7 +125,7 @@ export default function CreateInvoicePage() {
       if (isEditMode) {
         // Editing only updates top-level invoice fields (status, due date, notes, tax).
         // Line item changes aren't saved in edit mode yet — that's a known limitation.
-        await api.put(`/invoices/${id}`, {
+        await api.business(currentBusiness.id).put(`/invoices/${id}`, {
           status: existingStatus,
           due_date: dueDate,
           notes,
@@ -133,7 +134,7 @@ export default function CreateInvoicePage() {
         });
         navigate(`/invoices/${id}`);
       } else {
-        const data = await api.post('/invoices', {
+        const data = await api.business(currentBusiness.id).post('/invoices', {
           client_id: clientId,
           due_date: dueDate,
           tax_enabled: taxEnabled,

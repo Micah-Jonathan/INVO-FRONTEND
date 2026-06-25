@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../lib/api';
 import { useAuth } from '../context/AuthContext';
+import { useBusiness } from '../context/BusinessContext';
 import './DashboardPage.css';
 
 function formatNaira(amount) {
@@ -16,6 +17,7 @@ function formatDate(dateStr) {
 
 export default function DashboardPage() {
   const { user } = useAuth();
+  const { currentBusiness } = useBusiness();
   const navigate = useNavigate();
   const [invoices, setInvoices] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -23,14 +25,14 @@ export default function DashboardPage() {
   const [filter, setFilter] = useState('all');
 
   useEffect(() => {
-    loadInvoices();
-  }, []);
+    if (currentBusiness) loadInvoices();
+  }, [currentBusiness]);
 
   async function loadInvoices() {
     setLoading(true);
     setError('');
     try {
-      const data = await api.get('/invoices');
+      const data = await api.business(currentBusiness.id).get('/invoices');
       setInvoices(data.invoices);
     } catch (err) {
       setError(err.message);
@@ -80,6 +82,8 @@ export default function DashboardPage() {
   }
 
   const firstName = user?.email?.split('@')[0] || 'there';
+
+  if (!currentBusiness) return <p>Loading your business...</p>;
 
   return (
     <div>

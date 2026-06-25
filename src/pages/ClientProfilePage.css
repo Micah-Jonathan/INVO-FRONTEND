@@ -10,7 +10,7 @@
 .topbar h1 {
   font-size: 18px;
   font-weight: 500;
-  color: #1A1A18;
+  color: var(--text-primary);
   margin: 0;
 }
 
@@ -18,11 +18,11 @@
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  border: 1px solid #E5E3DB;
-  background: #ffffff;
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
   cursor: pointer;
   font-size: 15px;
-  color: #5F5E5A;
+  color: var(--text-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -31,15 +31,15 @@
 
 .form-error {
   font-size: 13px;
-  color: #A32D2D;
-  background: #FCEBEB;
+  color: var(--danger-strong);
+  background: var(--danger-bg);
   padding: 10px 12px;
   border-radius: 8px;
 }
 
 .profile-header {
-  background: #ffffff;
-  border: 1px solid #E5E3DB;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
   padding: 22px;
   margin-bottom: 18px;
@@ -53,8 +53,8 @@
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  background: #E1F5EE;
-  color: #0F6E56;
+  background: var(--success-bg);
+  color: var(--accent-text);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -71,7 +71,7 @@
 .profile-name {
   font-size: 17px;
   font-weight: 500;
-  color: #1A1A18;
+  color: var(--text-primary);
 }
 
 .profile-meta-row {
@@ -83,7 +83,7 @@
 
 .profile-meta-item {
   font-size: 12.5px;
-  color: #5F5E5A;
+  color: var(--text-secondary);
 }
 
 .profile-actions {
@@ -96,9 +96,9 @@
   font-size: 12.5px;
   padding: 8px 14px;
   border-radius: 8px;
-  border: 1px solid #E0DED6;
-  background: #ffffff;
-  color: #5F5E5A;
+  border: 1px solid var(--border-color-strong);
+  background: var(--bg-card);
+  color: var(--text-secondary);
   font-weight: 500;
   cursor: pointer;
   white-space: nowrap;
@@ -109,8 +109,8 @@
   padding: 8px 14px;
   border-radius: 8px;
   border: none;
-  background: #1D9E75;
-  color: #fff;
+  background: var(--accent);
+  color: var(--bg-card);
   font-weight: 500;
   cursor: pointer;
   white-space: nowrap;
@@ -118,7 +118,7 @@
 
 .delete-link {
   font-size: 12.5px;
-  color: #A32D2D;
+  color: var(--danger-strong);
   background: transparent;
   border: none;
   cursor: pointer;
@@ -132,8 +132,8 @@
   align-items: center;
   gap: 10px;
   font-size: 12.5px;
-  color: #791F1F;
-  background: #FCEBEB;
+  color: var(--danger-text);
+  background: var(--danger-bg);
   padding: 10px 14px;
   border-radius: 8px;
   margin-bottom: 18px;
@@ -145,8 +145,8 @@
   padding: 7px 12px;
   border-radius: 8px;
   border: none;
-  background: #A32D2D;
-  color: #fff;
+  background: var(--danger-strong);
+  color: var(--bg-card);
   font-weight: 500;
   cursor: pointer;
 }
@@ -164,30 +164,30 @@
 }
 
 .stat {
-  background: #ffffff;
-  border: 1px solid #E5E3DB;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
   padding: 14px 16px;
 }
 
 .stat-label {
   font-size: 11.5px;
-  color: #5F5E5A;
+  color: var(--text-secondary);
   margin-bottom: 6px;
 }
 
 .stat-value {
   font-size: 18px;
   font-weight: 500;
-  color: #1A1A18;
+  color: var(--text-primary);
 }
 
 .stat-value.danger {
-  color: #A32D2D;
+  color: var(--danger-strong);
 }
 
 .stat-value.success {
-  color: #0F6E56;
+  color: var(--accent-text);
 }
 
 .section-head {
@@ -197,25 +197,25 @@
 .section-head h2 {
   font-size: 14px;
   font-weight: 500;
-  color: #1A1A18;
+  color: var(--text-primary);
   margin: 0;
 }
 
 .empty-state {
   text-align: center;
   padding: 40px 20px;
-  color: #888780;
+  color: var(--text-tertiary);
   font-size: 14px;
-  background: #ffffff;
-  border: 1px solid #E5E3DB;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
 }
 
 .invoice-table {
   width: 100%;
   border-collapse: collapse;
-  background: #ffffff;
-  border: 1px solid #E5E3DB;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
   overflow: hidden;
 }
@@ -223,20 +223,20 @@
 .invoice-table th {
   font-size: 11px;
   font-weight: 500;
-  color: #888780;
+  color: var(--text-tertiary);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   text-align: left;
   padding: 10px 14px;
-  background: #F7F6F2;
-  border-bottom: 1px solid #E5E3DB;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .invoice-table td {
   padding: 11px 14px;
-  border-bottom: 1px solid #E5E3DB;
+  border-bottom: 1px solid var(--border-color);
   font-size: 12.5px;
-  color: #5F5E5A;
+  color: var(--text-secondary);
 }
 
 .invoice-table tr:last-child td {
@@ -248,17 +248,17 @@
 }
 
 .invoice-table tbody tr:hover {
-  background: #F7F6F2;
+  background: var(--bg-secondary);
 }
 
 .inv-num {
   font-weight: 500;
-  color: #1A1A18;
+  color: var(--text-primary);
 }
 
 .amt-cell {
   font-weight: 500;
-  color: #1A1A18;
+  color: var(--text-primary);
 }
 
 .badge {
@@ -270,26 +270,26 @@
 }
 
 .badge.paid {
-  background: #E1F5EE;
-  color: #085041;
+  background: var(--success-bg);
+  color: var(--success-text);
 }
 
 .badge.overdue {
-  background: #FCEBEB;
-  color: #791F1F;
+  background: var(--danger-bg);
+  color: var(--danger-text);
 }
 
 .badge.pending {
-  background: #FAEEDA;
-  color: #633806;
+  background: var(--warn-bg);
+  color: var(--warn-text);
 }
 
 .badge.partial {
-  background: #E6F1FB;
-  color: #0C447C;
+  background: var(--info-bg);
+  color: var(--info-text);
 }
 
 .badge.draft {
-  background: #F0EFEA;
-  color: #5F5E5A;
+  background: var(--draft-bg);
+  color: var(--text-secondary);
 }

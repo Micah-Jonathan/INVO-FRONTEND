@@ -1,16 +1,15 @@
 // src/lib/api.js
 //
-// A small wrapper around fetch() that:
-// 1. Automatically points to your backend URL
-// 2. Automatically attaches the logged-in user's token (if there is one)
-// 3. Throws a clean error if the backend responds with one
+// Same fetch wrapper as before, PLUS a new helper: api.business(businessId)
+// returns a version of `api` where every call automatically gets prefixed
+// with /businesses/:businessId — so pages don't need to manually build
+// that URL prefix on every single call.
 
 import { supabase } from './supabaseClient';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 async function request(path, options = {}) {
-  // Get the current session (if logged in) so we can attach the token
   const { data: sessionData } = await supabase.auth.getSession();
   const token = sessionData?.session?.access_token;
 
@@ -39,4 +38,16 @@ export const api = {
   post: (path, body) => request(path, { method: 'POST', body: JSON.stringify(body) }),
   put: (path, body) => request(path, { method: 'PUT', body: JSON.stringify(body) }),
   delete: (path) => request(path, { method: 'DELETE' }),
+
+  // NEW: returns a business-scoped version of the api helper.
+  // Usage: api.business(businessId).get('/clients')
+  //   -> actually calls GET /businesses/{businessId}/clients
+  business: (businessId) => ({
+    get: (path) => request(`/businesses/${businessId}${path}`, { method: 'GET' }),
+    post: (path, body) =>
+      request(`/businesses/${businessId}${path}`, { method: 'POST', body: JSON.stringify(body) }),
+    put: (path, body) =>
+      request(`/businesses/${businessId}${path}`, { method: 'PUT', body: JSON.stringify(body) }),
+    delete: (path) => request(`/businesses/${businessId}${path}`, { method: 'DELETE' }),
+  }),
 };
