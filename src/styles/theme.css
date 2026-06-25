@@ -1,0 +1,149 @@
+/* src/pages/LoginPage.css */
+
+* {
+  box-sizing: border-box;
+}
+
+.auth-shell {
+  min-height: 100vh;
+  background: var(--bg-page);
+  display: flex;
+}
+
+.auth-visual {
+  flex: 1;
+  background: linear-gradient(160deg, #14151A 0%, #16302A 55%, #1D9E75 100%);
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.visual-logo {
+  font-size: 22px;
+  font-weight: 500;
+  position: relative;
+  z-index: 1;
+}
+
+.visual-quote {
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1.4;
+  max-width: 420px;
+  position: relative;
+  z-index: 1;
+}
+
+.visual-sub {
+  font-size: 15px;
+  opacity: 0.85;
+  margin-top: 14px;
+  max-width: 380px;
+  position: relative;
+  z-index: 1;
+}
+
+.auth-form-side {
+  width: 440px;
+  flex-shrink: 0;
+  background: var(--bg-card);
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.form-tabs {
+  display: flex;
+  gap: 4px;
+  background: var(--bg-secondary);
+  border-radius: 10px;
+  padding: 4px;
+  margin-bottom: 28px;
+}
+
+.form-tab {
+  flex: 1;
+  text-align: center;
+  padding: 9px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.form-tab.active {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.form-title {
+  font-size: 21px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin: 0 0 4px;
+}
+
+.form-sub {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin: 0 0 24px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.field label {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.field input {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color-strong);
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.field input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.form-error {
+  font-size: 13px;
+  color: var(--danger-strong);
+  background: var(--danger-bg);
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin-bottom: 14px;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background: var(--accent);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
