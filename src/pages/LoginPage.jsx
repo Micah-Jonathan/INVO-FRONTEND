@@ -84,17 +84,15 @@ export default function LoginPage() {
 
   return (
     <div className="auth-shell">
-      <div className="auth-visual">
-        <div className="visual-logo">Invo.</div>
-        <div>
+      <div className="auth-form-side">
+        <div className="auth-visual">
+          <div className="visual-logo">Invo.</div>
           <div className="visual-quote">Know exactly who owes you, and when.</div>
           <div className="visual-sub">
             Invo helps small businesses send invoices, track payments, and get paid faster.
           </div>
         </div>
-      </div>
 
-      <div className="auth-form-side">
         <div className="form-tabs">
           <div
             className={`form-tab ${mode === 'login' ? 'active' : ''}`}
