@@ -15,6 +15,24 @@ export default function LoginPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
+  async function handleGoogleSignIn() {
+    setError('');
+    const { error: oauthError } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        // After Google + Supabase finish their handshake, send the user
+        // back to our own dashboard route, not Supabase's default page.
+        redirectTo: `${window.location.origin}/dashboard`,
+      },
+    });
+
+    if (oauthError) {
+      setError(oauthError.message);
+    }
+    // No navigate() call needed here — signInWithOAuth redirects the
+    // entire page to Google, then back to redirectTo above once done.
+  }
+
   async function handleLogin(e) {
     e.preventDefault();
     setError('');
@@ -168,6 +186,11 @@ export default function LoginPage() {
             </button>
           </form>
         )}
+
+        <div className="divider"><span>or</span></div>
+        <button className="google-btn" onClick={handleGoogleSignIn} type="button">
+          Continue with Google
+        </button>
       </div>
     </div>
   );
