@@ -17,32 +17,64 @@ export default function AppLayout() {
   const { theme, toggleTheme } = useTheme();
   const { businesses, currentBusiness, switchBusiness, loading } = useBusiness();
   const [switcherOpen, setSwitcherOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
 
   function handleSwitch(businessId) {
     switchBusiness(businessId);
     setSwitcherOpen(false);
-    // Send them back to the dashboard so they land somewhere sensible
-    // for the business they just switched to, rather than staying on
-    // a detail page that belonged to the OLD business's data.
+    setMobileMenuOpen(false);
     navigate('/dashboard');
+  }
+
+  // Closes the mobile drawer whenever a nav link is tapped,
+  // so the user actually sees the page they navigated to.
+  function handleNavClick() {
+    setMobileMenuOpen(false);
   }
 
   return (
     <div className="app-shell">
-      <aside className="sidebar">
+      <div className="mobile-topbar">
+        <button
+          className="hamburger-btn"
+          onClick={() => setMobileMenuOpen(true)}
+          aria-label="Open menu"
+        >
+          ☰
+        </button>
+        <div className="logo">
+          Invo<span>.</span>
+        </div>
+        <div style={{ width: 30 }} /> {/* spacer so the logo stays visually centered */}
+      </div>
+
+      {mobileMenuOpen && (
+        <div className="sidebar-backdrop" onClick={() => setMobileMenuOpen(false)} />
+      )}
+
+      <aside className={`sidebar ${mobileMenuOpen ? 'mobile-open' : ''}`}>
         <div className="logo-row">
           <div className="logo">
             Invo<span>.</span>
           </div>
-          <button
-            className="theme-toggle-btn"
-            onClick={toggleTheme}
-            aria-label="Toggle dark mode"
-            title={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
-          >
-            {theme === 'light' ? '🌙' : '☀️'}
-          </button>
+          <div className="logo-row-actions">
+            <button
+              className="theme-toggle-btn"
+              onClick={toggleTheme}
+              aria-label="Toggle dark mode"
+              title={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
+            >
+              {theme === 'light' ? '🌙' : '☀️'}
+            </button>
+            <button
+              className="close-menu-btn"
+              onClick={() => setMobileMenuOpen(false)}
+              aria-label="Close menu"
+            >
+              ✕
+            </button>
+          </div>
         </div>
 
         <div className="business-switcher">
@@ -83,20 +115,20 @@ export default function AppLayout() {
         </div>
 
         <p className="nav-label">Main</p>
-        <NavLink to="/dashboard" className="nav-item">
+        <NavLink to="/dashboard" className="nav-item" onClick={handleNavClick}>
           Dashboard
         </NavLink>
-        <NavLink to="/invoices" className="nav-item">
+        <NavLink to="/invoices" className="nav-item" onClick={handleNavClick}>
           Invoices
         </NavLink>
-        <NavLink to="/clients" className="nav-item">
+        <NavLink to="/clients" className="nav-item" onClick={handleNavClick}>
           Clients
         </NavLink>
 
         <div className="nav-divider" />
 
         <p className="nav-label">Account</p>
-        <NavLink to="/settings" className="nav-item">
+        <NavLink to="/settings" className="nav-item" onClick={handleNavClick}>
           Settings
         </NavLink>
 
